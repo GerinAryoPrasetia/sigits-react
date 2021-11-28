@@ -13,12 +13,14 @@ const Home = () => {
                 <Clock />
                 <Location />
             </div>
-            <Indicator />
-            <p className={styles.description}>Cenderung Pasang</p>
-            <Link to='/details'><button className={styles.btnDetail}>Lihat Detail</button></Link>
-            <hr style={{ width: '60%', margin: 'auto' }} />
-            <div className={styles.detailWrapper}>
-                <Details />
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <Indicator />
+                <p className={styles.description}>Cenderung Pasang</p>
+                <Link to='/details'><button className={styles.btnDetail}>Lihat Detail</button></Link>
+                <hr style={{ width: '60%', margin: 'auto' }} />
+                <div className={styles.detailWrapper}>
+                    <Details />
+                </div>
             </div>
         </div>
     )

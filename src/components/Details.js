@@ -5,6 +5,7 @@ import CerahBerawan from '../img/cerah-berawan.png'
 import Kelembabpan from '../img/ic-humidity.png'
 import Wind from '../img/ic-wind.png'
 import River from '../img/ic-river.png'
+import axios from 'axios';
 
 const lat = -7.335555;
 const lon = 108.186019;
@@ -17,8 +18,10 @@ const Details = () => {
     const [humidity, setHumidity] = useState(0);
     const [wind, setWind] = useState(0)
     const [desc, setDesc] = useState('')
+    const [tinggiAir, setTinggiAir] = useState(0)
 
     useEffect(() => {
+        getTinggiAir()
         try {
             // console.log('try');
             fetch(apiUrl)
@@ -35,6 +38,14 @@ const Details = () => {
         }
     }, [])
 
+    const getTinggiAir = async () => {
+        await axios.get("https://api.thingspeak.com/channels/1566932/feeds.json?results=1")
+            .then(data => {
+                setTinggiAir(data.data.feeds[0].field2)
+                console.log(data);
+            })
+        console.log("tinggiair", tinggiAir);
+    }
     return (
         <div>
             <div className={styles.detailsWrapper}>
@@ -48,7 +59,7 @@ const Details = () => {
                 <div className={styles.humidity}>
                     <img src={Kelembabpan} alt="ic-cloud" />
                     <p style={{ marginBottom: '20px' }}>Kelembaban</p>
-                    <h2 className={styles.humDetails}>{humidity}°C</h2>
+                    <h2 className={styles.humDetails}>{humidity}%</h2>
                 </div>
                 <div className={styles.wind}>
                     <img src={Wind} alt="ic-cloud" />
@@ -58,7 +69,7 @@ const Details = () => {
                 <div className={styles.waterHeight}>
                     <img src={River} alt="ic-cloud" />
                     <p style={{ marginBottom: '20px' }}>Ketinggian Air</p>
-                    <h2 className={styles.waterDetails}>{humidity}°C</h2>
+                    <h2 className={styles.waterDetails}>{Math.round(tinggiAir)} cm</h2>
                 </div>
             </div>
         </div>
