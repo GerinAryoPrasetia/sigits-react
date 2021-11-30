@@ -41,7 +41,7 @@ const Details = () => {
     const getTinggiAir = async () => {
         await axios.get("https://api.thingspeak.com/channels/1566932/feeds.json?results=1")
             .then(data => {
-                setTinggiAir(data.data.feeds[0].field2)
+                setTinggiAir(data.data.feeds[0].field1)
                 console.log(data);
             })
         console.log("tinggiair", tinggiAir);
